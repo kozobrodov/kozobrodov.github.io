@@ -165,7 +165,17 @@
             if (path === "") { // Extra case - root directory
                 return $('<span>').addClass('meta').append('&lt;root&gt;');
             }
-            return path.replace(/^.*[\\\/]/, '');
+            var fileName = path.replace(/^.*[\\\/]/, '');
+            if (fileName.length > 40) {
+                var dotIndex = fileName.lastIndexOf(".");
+                if (dotIndex > 0 && (fileName.length - dotIndex) < 5) {
+                    return fileName.substring(0, 30)
+                                + '<span class="meta">&lt;...&gt;</span>'
+                                + fileName.substring(dotIndex, fileName.length);
+                }
+                return fileName.substring(0, 30) + '<span class="meta">&lt;...&gt;</span>';
+            }
+            return fileName;
         }
 
         /**
