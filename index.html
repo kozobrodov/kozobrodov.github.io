@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>File tree test page</title>
+
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+    <link href="css/file-tree.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="treeViewHolder"></div>
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/fileTree.js"></script>
+    <script>
+        $('#treeViewHolder').fileTree({
+            jsonLocation: 'fixed-tree.json'
+        });
+    </script>
+</body>
+
+</html>

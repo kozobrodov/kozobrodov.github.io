@@ -1,0 +1,91 @@
+{
+  "fileData": {
+    "path": "",
+    "type": "directory",
+    "expandable": true
+  },
+  "children": [
+    {
+      "fileData": {
+        "path": "rar-archive.rar",
+        "type": "application/x-rar",
+        "expandable": true
+      },
+      "children": []
+    }, {
+      "fileData": {
+        "path" : "zip-with-inner-zip.zip",
+        "type" : "application/zip",
+        "expandable" : true
+      },
+      "children": [
+        {
+          "fileData": {
+            "path" : "zip-with-inner-zip.zip/test-zip.zip",
+            "type" : "application/zip",
+            "expandable" : true
+          },
+          "children": []
+        }
+      ]
+    }, {
+      "fileData": {
+        "path" : "passport-wallet.pdf",
+        "type" : "application/pdf",
+        "expandable" : false
+      }
+    }, {
+      "fileData": {
+        "path" : "test-zip.zip",
+        "type" : "application/zip",
+        "expandable" : true
+      },
+      "children": [
+        {
+          "fileData": {
+            "path" : "test-zip.zip/Inner directory",
+            "type" : "directory",
+            "expandable" : true
+          },
+          "children": [
+            {
+              "fileData": {
+                "path" : "test-zip.zip/Inner directory/test-txt",
+                "type" : "<unknown_type>",
+                "expandable" : false
+              }
+            }
+          ]
+        }
+      ]
+    }, {
+      "fileData": {
+        "path" : "test-image.jpg",
+        "type" : "image/jpeg",
+        "expandable" : false
+      }
+    }, {
+      "fileData": {
+        "path" : "jconsole.jar",
+        "type" : "application/x-java-archive",
+        "expandable" : true
+      },
+      "children": []
+    }, {
+      "fileData": {
+        "path" : "Inner directory",
+        "type" : "directory",
+        "expandable" : true
+      },
+      "children": [
+        {
+          "fileData": {
+            "path" : "Inner directory/test.txt",
+            "type" : "text/plain",
+            "expandable" : false
+          }
+        }
+      ]
+    }
+  ]
+}
