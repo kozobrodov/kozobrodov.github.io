@@ -154,12 +154,51 @@
                 });
             }
 
-            this.list = function(path) {
-                return this.tree.get(path).children;
+            this.list = function(path, callback) {
+                callback(this.tree.get(path).children);
             }
 
         }
         return new JsonDataProvider();
+    }
+
+    /**
+     * Data provider which uses remote service to get
+     * data about files
+     */
+    var getServiceDataProvider = function(url) {
+        function ServiceDataProvider() {
+            this.load = function(callback) {callback();}
+
+            function mapToTreeNode(data, callback) {
+                var nodes = [];
+                data.forEach(function(fileData) {
+                    var node = {
+                        fileData: fileData,
+                        children: []
+                    }
+                    nodes.push(node);
+                });
+                callback(nodes);
+            }
+
+            this.list = function(path, callback, errorCallback) {
+                $.get(url + path, function(data) {mapToTreeNode(data, callback)})
+                    .fail(function(jqXHR) {
+                        switch(jqXHR.status) {
+                            case 501:
+                            case 404:
+                                alert(jqXHR.responseText);
+                                break;
+                            default:
+                                console.error(jqXHR.statusText);
+                                console.error(jqXHR);
+                        }
+                        errorCallback();
+                    });
+            }
+        }
+        return new ServiceDataProvider();
     }
 
     /**
@@ -233,13 +272,17 @@
             } else {
                 // Expand
                 parent.append(getLoader());
-                var data = settings.dataProvider.list(path);
-                if (data.length == 0) {
-                    var emptyNode = {empty:true};
-                    data.push(emptyNode);
-                }
-                var node = settings.stateHolder.addNodes(path, copyChildren(data));
-                render(parent.empty(), node);
+                settings.dataProvider.list(path, function(data) {
+                    if (data.length == 0) {
+                        var emptyNode = {empty:true};
+                        data.push(emptyNode);
+                    }
+                    var node = settings.stateHolder.addNodes(path, copyChildren(data));
+                    render(parent.empty(), node);
+                }, function() {
+                    // Remove loader in case of error:
+                    parent.children('div').remove();
+                });
             }
         }
 
@@ -343,7 +386,7 @@
          * }
          * ```
          */
-        dataProvider: {},
+        dataProvider: null,
 
         /**
          * Map of file MIME type to appropriate icons classes
@@ -352,7 +395,10 @@
             "directory": "fas fa-folder",
             "application/pdf": "fas fa-file-pdf",
             "application/x-rar": "fas fa-file-archive",
+            "application/x-rar-compressed": "fas fa-file-archive",
             "application/zip": "fas fa-file-archive",
+            "application/x-java-archive": "fab fa-java",
+            "application/java-archive": "fab fa-java",
             "<unknown_type>": "fas fa-file",
             "image/jpeg": "fas fa-file-image",
             "text/plain": "fas fa-file-alt"
@@ -369,8 +415,17 @@
      */
     $.fn.fileTree = function(config) {
         var settings = $.extend(defaultConfig, config);
-        if (typeof settings.jsonLocation !== 'undefined') {
-            settings.dataProvider = getJsonDataProvider(settings.jsonLocation);
+        if (settings.hasOwnProperty('dataProvider') && settings.dataProvider == null) {
+            if (settings.hasOwnProperty('serviceUrl') && settings.serviceUrl != null) {
+                settings.dataProvider = getServiceDataProvider(settings.serviceUrl);
+            } else if (
+                    settings.hasOwnProperty('jsonLocation')
+                    && settings.jsonLocation != null
+            ) {
+               settings.dataProvider = getJsonDataProvider(settings.jsonLocation);
+            } else {
+                console.error('Data provider cannot be found or chosen');
+            }
         }
         return this.each(function(index, e) {
             settings.dataProvider.load(function() {
