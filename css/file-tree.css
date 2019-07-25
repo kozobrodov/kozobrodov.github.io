@@ -7,6 +7,10 @@ ul, .treeView {
     padding:0;
 }
 
+.treeView span {
+    white-space:nowrap;
+}
+
 .treeView .expandable {
     cursor:pointer;
 }
@@ -20,24 +24,50 @@ ul, .treeView {
     color:#7ab4cc;
 }
 
+.fa-file-archive::after {
+    color: #293d45;
+    position:relative;
+    top:0.3em;
+    left:-0.5em;
+    font-size:0.6em;
+}
+
+.rar::after {
+    content: 'rar';
+}
+
+.zip::after {
+    content: 'zip';
+}
+
+.jar::after {
+    content: 'jar';
+}
+
 /* Loader: */
 .loader,
 .loader:before,
-.loader:after {
+.loader:after,
+.loader-big,
+.loader-big:before,
+.loader-big:after {
     border-radius: 50%;
     width: 0.5em;
     height: 0.5em;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+}
+.loader,
+.loader:before,
+.loader:after {
     -webkit-animation: load7 1.8s infinite ease-in-out;
     animation: load7 1.8s infinite ease-in-out;
 }
-.loader {
+.loader,
+.loader-big {
     color: #9f9f9f;
     display:inline-block;
     position:relative;
-    top:-0.5em;
-    left: 1.2em;
     -webkit-transform: translateZ(0);
     -ms-transform: translateZ(0);
     transform: translateZ(0);
@@ -45,17 +75,21 @@ ul, .treeView {
     animation-delay: -0.16s;
 }
 .loader:before,
-.loader:after {
+.loader:after,
+.loader-big:before,
+.loader-big:after {
     content: '';
     position: absolute;
     top: 0;
 }
-.loader:before {
+.loader:before,
+.loader-big:before {
     left: -1em;
     -webkit-animation-delay: -0.32s;
     animation-delay: -0.32s;
 }
-.loader:after {
+.loader:after,
+.loader-big:after {
     left: 1em;
 }
 @-webkit-keyframes load7 {
@@ -77,4 +111,48 @@ ul, .treeView {
     40% {
         box-shadow: 0 0.5em 0 0;
     }
+}
+
+@-webkit-keyframes load8 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+@keyframes load8 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+
+/* Bigger loader */
+.loader-big,
+.loader-big:before,
+.loader-big:after {
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation: load8 1.8s infinite ease-in-out;
+  animation: load8 1.8s infinite ease-in-out;
+}
+.loader-big {
+  font-size: 10px;
+  margin: 10px auto;
+  position: relative;
+  left: 4em;
+  text-indent: -9999em;
+}
+.loader-big:before {
+  left: -3.5em;
+}
+.loader-big:after {
+  left: 3.5em;
 }

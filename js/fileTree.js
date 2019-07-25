@@ -5,6 +5,21 @@
     }
 
     /**
+     * Sorting function for array of tree nodes.
+     * Directories are less then archives and
+     * archives are less then anything else.
+     */
+    function sortNodes(first, second) {
+        function weight(node) {
+            if (node.fileData.type === 'directory') {
+                return 2;
+            }
+            return node.fileData.expandable ? 1 : 0;
+        }
+        return weight(second) - weight(first);
+    }
+
+    /**
      * Implementation of file data tree which
      * uses index map (from file path to tree node)
      * for faster and easier access to tree nodes
@@ -93,18 +108,19 @@
      * store current UI state (see `defaultConfig` for
      * details)
      */
-    var getLocalStorageStateHolder = function() {
+    var getLocalStorageStateHolder = function(id) {
         function LocalStorageStateHolder() {
+            var storageKey = 'ru.kozobrodov.fileTree$' + id
             // Init root node
             function initState() {
                 var rootNode = {
-                    fileData: {path: '', type: 'directory', expandable: true},
+                    fileData: {path: '', name: '', type: 'directory', expandable: true},
                     children: []
                 };
-                localStorage.setItem('ru.kozobrodov.fileTree', JSON.stringify(rootNode));
+                localStorage.setItem(storageKey, JSON.stringify(rootNode));
                 return rootNode;
             }
-            var stateString = localStorage.getItem('ru.kozobrodov.fileTree');
+            var stateString = localStorage.getItem(storageKey);
             if (stateString != null && typeof stateString != 'undefined') {
                 this.tree = getIndexedFileDataTree(JSON.parse(stateString));
             } else {
@@ -113,7 +129,7 @@
 
             this.saveState = function() {
                 localStorage.setItem(
-                    'ru.kozobrodov.fileTree',
+                    storageKey,
                     JSON.stringify(this.getCurrentState())
                 );
             }
@@ -155,7 +171,9 @@
             }
 
             this.list = function(path, callback) {
-                callback(this.tree.get(path).children);
+                var data = this.tree.get(path).children;
+                data.sort(sortNodes);
+                callback(data);
             }
 
         }
@@ -179,6 +197,7 @@
                     }
                     nodes.push(node);
                 });
+                nodes.sort(sortNodes);
                 callback(nodes);
             }
 
@@ -207,24 +226,21 @@
      */
     function Core(settings) {
         /**
-         * Extracts file name from path. In case of root
-         * directory returns element with '<root>' text
+         * Transform file name using the following rules:
+         * - If file name is empty, it's a root directory
+         *   and special element presenting it must be returned
+         * - If name is too long (more than 40 symbols), it must
+         *   be shortened using special '<...>' filler
+         * - Name itself must be returned in all other cases
          */
-        function extractFileName(path) {
-            if (path === "") { // Extra case - root directory
+        function extractFileName(name) {
+            if (name === "") { // Extra case - root directory
                 return $('<span>').addClass('meta').append('&lt;root&gt;');
             }
-            var fileName = path.replace(/^.*[\\\/]/, '');
-            if (fileName.length > 40) {
-                var dotIndex = fileName.lastIndexOf(".");
-                if (dotIndex > 0 && (fileName.length - dotIndex) < 5) {
-                    return fileName.substring(0, 30)
-                                + '<span class="meta">&lt;...&gt;</span>'
-                                + fileName.substring(dotIndex, fileName.length);
-                }
-                return fileName.substring(0, 30) + '<span class="meta">&lt;...&gt;</span>';
+            if (name.length > 40) {
+                return name.substring(0, 30) + '<span class="meta">&lt;...&gt;</span>';
             }
-            return fileName;
+            return name;
         }
 
         /**
@@ -295,7 +311,7 @@
                 .append(
                     icon,
                     ' ',
-                    extractFileName(node.fileData.path)
+                    extractFileName(node.fileData.name)
                 );
             if (node.fileData.expandable) {
                 itemContent
@@ -337,6 +353,7 @@
 
         this.init = function(element) {
             // Create view container-list
+            element.empty();
             var container = $('<ul>').addClass('treeView').appendTo(element);
 
             // And render current state
@@ -371,7 +388,14 @@
          * }
          * ```
          */
-        stateHolder: getLocalStorageStateHolder(),
+        stateHolder: null,
+
+        /**
+         * Identifier of file tree. Used internally to differentiate
+         * different trees, so that it's possible to use several
+         * trees on single page
+         */
+        treeId: '',
 
         /**
          * Object which provides loadable data, must provide
@@ -394,11 +418,12 @@
         typeToIconClassMap: {
             "directory": "fas fa-folder",
             "application/pdf": "fas fa-file-pdf",
-            "application/x-rar": "fas fa-file-archive",
-            "application/x-rar-compressed": "fas fa-file-archive",
-            "application/zip": "fas fa-file-archive",
-            "application/x-java-archive": "fab fa-java",
-            "application/java-archive": "fab fa-java",
+            "application/x-rar": "fas fa-file-archive rar",
+            "application/x-rar-compressed": "fas fa-file-archive rar",
+            "application/zip": "fas fa-file-archive zip",
+            "application/x-zip-compressed": "fas fa-file-archive zip",
+            "application/x-java-archive": "fas fa-file-archive jar",
+            "application/java-archive": "fas fa-file-archive jar",
             "<unknown_type>": "fas fa-file",
             "image/jpeg": "fas fa-file-image",
             "text/plain": "fas fa-file-alt"
@@ -414,7 +439,14 @@
      * details).
      */
     $.fn.fileTree = function(config) {
-        var settings = $.extend(defaultConfig, config);
+        var settings = $.extend({}, defaultConfig, config);
+
+        // Set state holder
+        if (settings.hasOwnProperty('stateHolder') && settings.stateHolder == null) {
+            settings.stateHolder = getLocalStorageStateHolder(settings.treeId);
+        }
+
+        // Set data provider
         if (settings.hasOwnProperty('dataProvider') && settings.dataProvider == null) {
             if (settings.hasOwnProperty('serviceUrl') && settings.serviceUrl != null) {
                 settings.dataProvider = getServiceDataProvider(settings.serviceUrl);
@@ -428,6 +460,7 @@
             }
         }
         return this.each(function(index, e) {
+            $(e).append($('<div>').addClass('loader-big'))
             settings.dataProvider.load(function() {
                 new Core(settings).init($(e));
             });

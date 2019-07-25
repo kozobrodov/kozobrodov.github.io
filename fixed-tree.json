@@ -1,6 +1,7 @@
 {
   "fileData": {
     "path": "",
+    "name": "",
     "type": "directory",
     "expandable": true
   },
@@ -8,50 +9,57 @@
     {
       "fileData": {
         "path": "rar-archive.rar",
+        "name": "rar-archive.rar",
         "type": "application/x-rar",
         "expandable": true
       },
       "children": []
     }, {
       "fileData": {
-        "path" : "zip-with-inner-zip.zip",
-        "type" : "application/zip",
+        "path": "zip-with-inner-zip.zip",
+        "name": "zip-with-inner-zip.zip",
+        "type": "application/zip",
         "expandable" : true
       },
       "children": [
         {
           "fileData": {
-            "path" : "zip-with-inner-zip.zip/test-zip.zip",
-            "type" : "application/zip",
-            "expandable" : true
+            "path": "zip-with-inner-zip.zip/test-zip.zip",
+            "name": "test-zip.zip",
+            "type": "application/zip",
+            "expandable": true
           },
           "children": []
         }
       ]
     }, {
       "fileData": {
-        "path" : "passport-wallet.pdf",
-        "type" : "application/pdf",
-        "expandable" : false
+        "path": "passport-wallet.pdf",
+        "name": "passport-wallet.pdf",
+        "type": "application/pdf",
+        "expandable": false
       }
     }, {
       "fileData": {
-        "path" : "test-zip.zip",
-        "type" : "application/zip",
-        "expandable" : true
+        "path": "test-zip.zip",
+        "name": "test-zip.zip",
+        "type": "application/zip",
+        "expandable": true
       },
       "children": [
         {
           "fileData": {
-            "path" : "test-zip.zip/Inner directory",
-            "type" : "directory",
+            "path": "test-zip.zip/Inner directory",
+            "name": "Inner directory",
+            "type": "directory",
             "expandable" : true
           },
           "children": [
             {
               "fileData": {
-                "path" : "test-zip.zip/Inner directory/test-txt",
-                "type" : "<unknown_type>",
+                "path": "test-zip.zip/Inner directory/test-txt",
+                "name": "test-txt",
+                "type": "<unknown_type>",
                 "expandable" : false
               }
             }
@@ -60,36 +68,41 @@
       ]
     }, {
       "fileData": {
-        "path" : "test-image.jpg",
-        "type" : "image/jpeg",
-        "expandable" : false
+        "path": "test-image.jpg",
+        "name": "test-image.jpg",
+        "type": "image/jpeg",
+        "expandable": false
       }
     }, {
       "fileData": {
-        "path" : "jconsole.jar",
-        "type" : "application/x-java-archive",
-        "expandable" : true
+        "path": "jconsole.jar",
+        "name": "jconsole.jar",
+        "type": "application/x-java-archive",
+        "expandable": true
       },
       "children": []
     }, {
       "fileData": {
-        "path" : "Inner directory",
-        "type" : "directory",
-        "expandable" : true
+        "path": "Inner directory",
+        "name": "Inner directory",
+        "type": "directory",
+        "expandable": true
       },
       "children": [
         {
           "fileData": {
-            "path" : "Inner directory/file-with-very-long-nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.txt",
-            "type" : "text/plain",
-            "expandable" : false
+            "path": "Inner directory/file-with-very-long-nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.txt",
+            "name": "file-with-very-long-nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.txt",
+            "type": "text/plain",
+            "expandable": false
           }
         },
         {
           "fileData": {
-            "path" : "Inner directory/file-with-very-long.extensionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
-            "type" : "text/plain",
-            "expandable" : false
+            "path": "Inner directory/file-with-very-long.extensionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
+            "name": "file-with-very-long.extensionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn",
+            "type": "text/plain",
+            "expandable": false
           }
         }
       ]
