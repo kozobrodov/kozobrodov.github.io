@@ -36,13 +36,13 @@
         <div class="top-bar" id="top">
             <div class="container">
                 <div class="subheader">
-                    <div class="pull-left">
+                    <div class="pull-left" itemscope itemtype="https://schema.org/Organization">
                         <i class="fas fa-phone-square-alt"></i>
-                        +7 (921) 961-6206&nbsp;&nbsp;&nbsp;+7 (812) 961-6206
+                        <span itemprop="telephone" content="+78129616206"><a href="tel:+78129616206">+7 (812) 961-6206</a></span>
                     </div>
                     <div class="pull-left">
                         <i class="fas fa-envelope"></i>
-                        paracentr@mail.ru
+                        <a href="mailto:paracentr@mail.ru">paracentr@mail.ru</a>
                     </div>
                     <div class="pull-right">
                         <a href="https://www.instagram.com/paracentr/"><i class="fab fa-instagram"></i></a>
@@ -58,27 +58,90 @@
         </div>
         <div class="top-menu">
             <div class="container">
+                <!-- Navigation for mobile version of site -->
+                <nav class="mobile-navigation">
+                    <div id="menuToggle">
+                        <input type="checkbox" />
+                        <span class="ham"></span>
+                        <span class="bur"></span>
+                        <span class="ger"></span>
+                        <ul id="menu">
+                            <li><a href="index.html">Главная</a></li>
+                            <li>
+                                <i class="section">Начинающим</i>
+                                <ul>
+                                    <li><a href="tandem.html">Прыжок в тандеме</a></li>
+                                    <li><a href="certs.html">Подарочные сертификаты</a></li>
+                                    <li><a href="aff.html">Обучение</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <i class="section">Спорстменам</i>
+                                <ul>
+                                    <li><a href="sport-info.html">Общая информация</a></li>
+                                    <li><a href="webcam.html">Веб-камера</a></li>
+                                    <li><a href="calendar.html">Календарь</a></li>
+                                    <li><a href="hotel.html">Проживание</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <i class="section">О нас</i>
+                                <ul>
+                                    <li><a href="aero-putilovo.html">Аэродром Путилово</a></li>
+                                    <li><a href="planes.html">Авиапарк</a></li>
+                                    <li><a href="bosses.html">Руководство</a></li>
+                                    <li><a href="instructors.html">Инструктора</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="contacts.html">Контакты</a></li>
+                        </ul>
+                    </div>
+                </nav>
                 <!-- Static navbar -->
-                <div class="navbar navbar-default" role="navigation">
+                <div class="navbar" role="navigation">
                     <div class="container">
                         <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                </button>
                                 <a href="#" class="navbar-brand"><img src="images/logo-new.png" alt="ДЗ Путилово" title="ДЗ Путилово" /></a>
                         </div>
-                        <div class="navbar-collapse collapse" id="nav-bar">
-                            <ul class="nav navbar-nav navbar-right" style="margin-top: 50px;">
-                                <li class="active"><a href="#top">Главная</a></li>
-                                <li><a href="#">Начинающим</a></li>
-                                <li><a href="#">Спортсменам</a></li>
-                                <li><a href="#">О нас</a></li>
-                                <li><a href="#">Контакты</a></li>
+                        <nav class="topnav" id="myTopnav">
+                            <ul>
+                                <li><a href="index.html" class="active">Главная</a></li>
+                                <li class="dropdown">
+                                    <button class="dropbtn">Начинающим
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-content">
+                                        <li><a href="tandem.html">Прыжок в тандеме</a></li>
+                                        <li><a href="certs.html">Подарочные сертификаты</a></li>
+                                        <li><a href="aff.html">Обучение</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <button class="dropbtn">Спорстменам
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-content">
+                                        <li><a href="sport-info.html">Общая информация</a></li>
+                                        <li><a href="webcam.html">Веб-камера</a></li>
+                                        <li><a href="calendar.html">Календарь</a></li>
+                                        <li><a href="hotel.html">Проживание</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <button class="dropbtn">О нас
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <ul class="dropdown-content">
+                                        <li><a href="aero-putilovo.html">Аэродром Путилово</a></li>
+                                        <li><a href="planes.html">Авиапарк</a></li>
+                                        <li><a href="bosses.html">Руководство</a></li>
+                                        <li><a href="instructors.html">Инструктора</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#about">Контакты</a></li>
+                                <li class="icon"><a href="javascript:void(0);" style="font-size:15px;" onclick="toggleMenu()">&#9776;</a></li>
                             </ul>
-                        </div><!--/.nav-collapse -->
+                        </nav><!--/.nav-collapse -->
                     </div><!--/.container-fluid -->
                 </div><!--/.navbar -->
             </div> <!-- /container -->
